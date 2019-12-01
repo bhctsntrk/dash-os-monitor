@@ -18,12 +18,14 @@ server = app.server
 
 # Font and background colors associated with each theme
 headerColor = {"dark": "#2D3038", "light": "#FFFFFF"}
-backgroundColor = {"dark": "#23262E", "light": "#F6F6F7"}
-gridColor = {"dark": "#53555B", "light": "#969696"}
+headerBackground = {"dark": "linear-gradient(173deg, rgba(29,29,29,1) 0%, rgba(82,82,82,1) 57%, rgba(79,79,79,1) 100%)", "light": "linear-gradient(173deg, rgba(171,171,171,1) 0%, rgba(223,223,223,1) 57%, rgba(175,175,175,1) 100%)"}
+textClassName = {"dark": "retro", "light": "future"}
 textColor = {"dark": "#95969A", "light": "#595959"}
-cardColor = {"dark": "#2D3038", "light": "#FFFFFF"}
+backgroundColor = {"dark": "#23262E", "light": "#95969A"}
+gridColor = {"dark": "#53555B", "light": "#969696"}
+cardColor = {"dark": "#2D3038", "light": "#a6a6a6"}
 lightColor = {"dark": "#00ff55", "light": "#45fffd"}
-bckLightColor = {"dark": "#072611", "light": "#032b2a"}
+bckLightColor = {"dark": "#072611", "light": "#FFFFFF"}
 
 theme = "light"
 
@@ -33,26 +35,23 @@ usageDict = {"cpu": [], "mem": [], 'time': []}
 
 
 def bodyLayoutGen():
-    global theme
-
-    bodyLayout = html.Div(id="body", children=[
+    bodyLayout = html.Div(id="body", className=textClassName[theme], children=[
         html.Div(id="tempSection", style={"backgroundColor": cardColor[theme]}, children=[
             html.H5("System Temprature"),
             dcc.Interval(
                 id='tempInterval',
-                interval=1*1000,  # in milliseconds
+                interval=2*1000,  # in milliseconds
                 n_intervals=0
             ),
             html.Div(
                 id="tempGraphSection",
                 className="seven columns",
-                style={"backgroundColor": cardColor[theme]},
+                style={"backgroundColor": backgroundColor[theme]},
                 children=[
                     html.Div(
                         id="tempLedDispSection",
                         style={
-                            "backgroundColor": backgroundColor[theme],
-                            "color": textColor[theme],
+                            "backgroundColor": cardColor[theme],
                         },
                         children=[
                             daq.LEDDisplay(
@@ -75,10 +74,10 @@ def bodyLayoutGen():
             html.Div(
                 id="tempControlSection",
                 className="two columns",
-                style={"backgroundColor": backgroundColor[theme]},
+                style={"backgroundColor": cardColor[theme]},
                 children=[
                     html.Button("Reset Graph",
-                                id="tempDataResetButton", n_clicks=0, style={"color": textColor[theme]}),
+                                id="tempDataResetButton", n_clicks=0, className=textClassName[theme]),
                     daq.PowerButton(
                         id="tempStopButton",
                         color=lightColor[theme],
@@ -92,19 +91,18 @@ def bodyLayoutGen():
             html.H5("System Usage"),
             dcc.Interval(
                 id='usageInterval',
-                interval=5*1000,  # in milliseconds
+                interval=2*1000,  # in milliseconds
                 n_intervals=0
             ),
             html.Div(
                 id="usageGraphSection",
                 className="seven columns",
-                style={"backgroundColor": cardColor[theme]},
+                style={"backgroundColor": backgroundColor[theme]},
                 children=[
                     html.Div(
                         id="usageGaugeDispSection",
                         style={
-                            "backgroundColor": backgroundColor[theme],
-                            "color": textColor[theme],
+                            "backgroundColor": cardColor[theme]
                         },
                         children=[
                             daq.Gauge(
@@ -131,10 +129,10 @@ def bodyLayoutGen():
             html.Div(
                 id="usageControlSection",
                 className="two columns",
-                style={"backgroundColor": backgroundColor[theme]},
+                style={"backgroundColor": cardColor[theme]},
                 children=[
                     html.Button("Reset Graph",
-                                id="usageDataResetButton", n_clicks=0, style={"color": textColor[theme]}),
+                                id="usageDataResetButton", n_clicks=0, className=textClassName[theme]),
                     daq.PowerButton(
                         id="usageStopButton",
                         color=lightColor[theme],
@@ -160,15 +158,15 @@ app.layout = html.Div(
         html.Div(
             id="header",
             style={
-                "backgroundColor": headerColor[theme],
-                "color": textColor[theme],
+                "background": headerBackground[theme],
             },
+            className=textClassName[theme],
             children=[
                 html.Img(
                     src=app.get_asset_url("logo-mini.png"),
                     className="logo three columns",
                 ),
-                html.H6("Dash System Monitor",
+                html.H6("SYSTEM MONITOR SCREEN",
                         className="title six columns"),
                 html.Div(
                     className="three columns",
@@ -176,11 +174,10 @@ app.layout = html.Div(
                     children=[
                         daq.ToggleSwitch(
                             id="toggleTheme",
-                            label=["Light", "Dark"],
+                            label=["Future", "Retro"],
                             style={
                                 "margin": "auto",
                                 "width": "65%",
-                                "color": textColor[theme],
                             },
                             value=False,
                             size=35,
@@ -189,19 +186,18 @@ app.layout = html.Div(
                 ),
             ],
         ),
-        html.P(id="summary", className="mono retro line-1",
-               children=getEverything()),
         html.Div(
             id="bodySection",
             children=bodyLayoutGen(),
             className="flex-display",
             style={"backgroundColor": backgroundColor[theme], "padding": "2%"},
         ),
+        html.P(id="summary",
+               children=getEverything()),
     ],
 )
 
 # ======= Dark/light themes callbacks =======
-
 
 @app.callback(
     [Output("bodySection", "style"),
@@ -223,7 +219,9 @@ def page_style(value, style_dict):
 
 
 @app.callback(
-    Output("header", "style"),
+    [Output("header", "style"),
+     Output("header", "className"),
+     Output("summary", "className")],
     [Input("toggleTheme", "value")],
     [State("header", "style")],
 )
@@ -235,9 +233,10 @@ def header_style(value, style_dict):
     else:
         theme = "light"
 
-    style_dict["color"] = textColor[theme]
-    style_dict["backgroundColor"] = headerColor[theme]
-    return style_dict
+    style_dict["background"] = headerBackground[theme]
+    headerClass = textClassName[theme]
+    summaryClass = "line-1 " + textClassName[theme]
+    return style_dict, headerClass, summaryClass
 
 
 @app.callback([Output('gpuTempLiveLed', 'value'),
@@ -280,20 +279,22 @@ def updateTempLiveGraph(n):
             'y': tempDict['cpu'],
             'name': 'Cpu temp',
             'mode': 'lines',
-            'type': 'scatter'
+            'type': 'scatter',
+            'line': {'color':lightColor[theme], 'width':5, 'dash':'dash'}
         },
         {
             'x': tempDict['time'],
             'y': tempDict['gpu'],
             'name': 'Gpu Temp',
             'mode': 'lines',
-            'type': 'scatter'
+            'type': 'scatter',
+            'line': {'color':lightColor[theme], 'width':5, 'dash':'dot'}
         }
     ]
     figure = {
         "data": data,
         "layout": dict(
-            paper_bgcolor=bckLightColor[theme],
+            paper_bgcolor=cardColor[theme],
             plot_bgcolor=bckLightColor[theme],
             automargin=True,
             font=dict(color=textColor[theme], size=12),
@@ -351,20 +352,22 @@ def updateUsageLiveGraph(n):
             'y': usageDict['cpu'],
             'name': 'Cpu usage',
             'mode': 'lines',
-            'type': 'scatter'
+            'type': 'scatter',
+            'line': {'color':lightColor[theme], 'width':5, 'dash':'dash'}
         },
         {
             'x': usageDict['time'],
             'y': usageDict['mem'],
             'name': 'Mem Usage',
             'mode': 'lines',
-            'type': 'scatter'
+            'type': 'scatter',
+            'line': {'color':lightColor[theme], 'width':5, 'dash':'dot'}
         }
     ]
     figure = {
         "data": data,
         "layout": dict(
-            paper_bgcolor=bckLightColor[theme],
+            paper_bgcolor=cardColor[theme],
             plot_bgcolor=bckLightColor[theme],
             automargin=True,
             font=dict(color=textColor[theme], size=12),

@@ -1,20 +1,13 @@
-.mono:lang(en-us), .mono {
-  font-family: Courier, Courier New;
-}
-
 .retro  {
   background-color: #282828;
   color: #66FF66;
   text-shadow: 0 0 10px #33FF33;
 }
 
-/* Google Fonts */
-@import url(https://fonts.googleapis.com/css?family=Anonymous+Pro);
-
-body{
-    color: rgba(255,255,255,.75);
-    font-family: 'Anonymous Pro', monospace;
-    background-color: rgb(25,25,25);
+.future  {
+  background-color: #a0a0a0;
+  color: rgb(102, 255, 255);
+  text-shadow: 0 0 10px rgb(51, 231, 255);
 }
 
 .line-1{
@@ -43,21 +36,14 @@ body{
 }
 
 .title {
-  font-family: "Dosis", sans-serif;
-  font-weight: 500;
-  font-size: 25px;
+  font-weight: 750;
+  font-size: 30px;
 }
 
 .logo {
   height: 30%;
   width: auto !important;
   padding-left: 5%;
-}
-
-#_dash-global-error-container
-  > div
-  > div.dash-debug-menu.dash-debug-menu--closed {
-  display: none;
 }
 
 #tempSection {
@@ -74,6 +60,8 @@ body{
   align-items: center;
   justify-content: space-between;
   height: 100px;
+  background: rgb(80,80,80);
+  background: linear-gradient(180deg, rgba(80,80,80,1) 0%, rgba(150,150,150,1) 45%, rgba(57,57,57,1) 100%);
 }
 
 #bodySection > div {
