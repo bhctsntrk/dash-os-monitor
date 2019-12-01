@@ -1,4 +1,4 @@
-dash==0.43
+dash
 gunicorn
 numpy
 dash_daq

@@ -1,8 +1,45 @@
-@import url("https://fonts.googleapis.com/css?family=Maven+Pro|Open+Sans");
+.mono:lang(en-us), .mono {
+  font-family: Courier, Courier New;
+}
 
-body {
-  font-family: "Open Sans", sans-serif;
-  font-weight: 300 !important;
+.retro  {
+  background-color: #282828;
+  color: #66FF66;
+  text-shadow: 0 0 10px #33FF33;
+}
+
+/* Google Fonts */
+@import url(https://fonts.googleapis.com/css?family=Anonymous+Pro);
+
+body{
+    color: rgba(255,255,255,.75);
+    font-family: 'Anonymous Pro', monospace;
+    background-color: rgb(25,25,25);
+}
+
+.line-1{
+    white-space: pre-line;
+    overflow: hidden;
+}
+
+/* Animation */
+.anim-typewriter{
+    animation: typewriter 6s steps(44) 1s 1 normal both,
+               blinkTextCursor 1s steps(44) infinite normal;
+}
+@keyframes typewriter{
+    from{width: 0;}
+    to{width: 44ch;}
+}
+
+@keyframes blinkTextCursor{
+    from{border-right-color: rgba(255,255,255,.75);}
+    to{border-right-color: transparent;}
+}
+
+@keyframes stage3-animation-a {
+  from{opacity: 0;}
+  to{opacity: 1;}
 }
 
 .title {
@@ -23,208 +60,55 @@ body {
   display: none;
 }
 
-.gRFjMP {
-  margin-top: 0;
+#tempSection {
+  justify-content: space-between;
 }
 
 .flex-display {
   display: flex;
 }
 
-.single_div_toggle_style {
-  width: 80%;
-  margin: auto;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.sweep_div_toggle_style {
-  align-items: center;
-  justify-content: space-around;
-}
-
-.banner {
+#header {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  height: 80px;
+  height: 100px;
 }
 
-.gRFjMP {
-  margin-left: 5px;
-}
-
-.intro-banner {
-  padding: 0 5%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.intro-banner-content {
-  padding: 20px 20px;
-  width: 60%;
-}
-
-.intro-banner-text {
-  font-size: 14px;
-}
-
-#learn-more-button {
-  font-family: "Maven Pro", sans-serif;
-  font-size: 13px;
-  height: 35px;
-  padding: 0 15px;
-  line-height: 0px;
-  border-radius: 0;
-  text-transform: capitalize;
-}
-
-#figure-card {
-  margin-left: 4.5%;
-  flex-direction: column;
-  justify-content: center;
-}
-
-#page-content > div {
+#bodySection > div {
   width: 100%;
 }
 
-#figure-card > p {
-  font-weight: 500;
-  font-size: 16px;
-  margin-top: 5%;
-}
-
-#control-container {
+#tempControlSection  {
   vertical-align: top;
-  margin-left: 1%;
+  margin-left: 2%;
 }
 
-#up-control-card,
-#mid-control-card {
+#tempLedDispSection {
   width: 100%;
-  padding: 5% 0 !important;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   flex-wrap: nowrap;
   justify-content: center;
   align-items: center;
   line-height: 1.6;
 }
 
-#bottom-card {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  justify-content: center;
-  align-items: center;
-  line-height: 1.6;
-}
-
-#control-sections {
+#tempControlSection {
   display: flex;
   flex-direction: column;
   line-height: 1.8;
-}
-
-#source-choice-toggle > label,
-#mode-choice-toggle > label {
-  padding: 10px;
-  white-space: nowrap;
 }
 
 #toggleTheme > label {
   font-weight: 700;
 }
 
-.daq-button > div > button {
-  border-radius: 25px;
-  font-size: 11px;
-  font-weight: normal;
-  background-color: #ff9827;
-  border: 1px #ff9827;
-  margin: 10px 0px;
-}
-
-.daq-button > div > button:hover {
-  background-color: #ffc261 !important;
-}
-
-.react-numeric-input > input [type="text"] {
-  color: #595959 !important;
-}
-
-.sweep-div-row,
-.sweep-div-row-inner {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.sweep-div-row {
-  width: 80%;
-  margin: 10px 0px;
-}
-
-#measure-div {
+#tempLedDispSection {
   display: flex;
   flex-direction: row;
   width: 90%;
   justify-content: space-between;
   padding-top: 25px;
-}
-
-#trigger-div {
-  display: flex;
-  flex-direction: row;
-  width: 80%;
-  justify-content: space-between;
-  margin: 10px 0px;
-}
-
-/* The Modal (background) */
-.modal {
-  display: none; /*Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1005; /* Sit on top */
-  left: 0;
-  top: 0;
-  width: 100vw; /* Full width */
-  height: 100vh; /* Full */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0, 0, 0); /* Fallback color */
-  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
-}
-
-/* Modal Content/Box */
-.markdown-container {
-  width: 60vw;
-  margin: 10% auto;
-  padding: 10px 15px;
-  background-color: #f9f9f9;
-  border-radius: 10px;
-}
-
-.close-container {
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  height: 40px;
-}
-
-.closeButton {
-  padding: 0 15px;
-  font-weight: normal;
-  float: right;
-  font-size: 1.2rem;
-  height: 100%;
-  border: none;
-}
-
-.closeButton:hover {
-  color: #ff9827 !important;
 }
