@@ -1,4 +1,4 @@
 dash
-gunicorn
 numpy
 dash_daq
+psutil
