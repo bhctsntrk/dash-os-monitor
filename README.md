@@ -25,6 +25,12 @@ python3 app.py
 in terminal. This start to serve app on localhost currently.
 check localhost:8050 to see app.
 
+Dash uses flask for backend. If you want to change serving options check this part of code
+https://github.com/bhctsntrk/dash-os-monitor/blob/master/app.py#L389
+
+and this page
+https://flask.palletsprojects.com/en/1.1.x/deploying/
+
 ## Screenshots
 
 ![Dash Os Monitor](screenshots/ss1.png)
