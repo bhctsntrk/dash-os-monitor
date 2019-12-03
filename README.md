@@ -33,6 +33,8 @@ https://flask.palletsprojects.com/en/1.1.x/deploying/
 
 ## Screenshots
 
+![animated](screenshots/anim.gif)
+
 ![Dash Os Monitor](screenshots/ss1.png)
 
 ![Dash Os Monitor](screenshots/ss2.png)
